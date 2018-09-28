@@ -6,7 +6,7 @@ def template(context):
     pod_spec_volume_mounts = []
     stateful_set_spec_volume_claim_templates = []
 
-    for pvc in context.get("pvc"):
+    for pvc in context.get("pvc", []):
         stateful_set_spec_volume_claim_templates.append(
             client.V1PersistentVolumeClaim(
                 metadata=client.V1ObjectMeta(

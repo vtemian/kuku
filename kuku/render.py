@@ -9,7 +9,7 @@ def render(context: Context, templates: Templates) -> Rendering:
     rendering = {}
     for template_path, template_func in templates.items():
         # pass a copy of the context to the template function and get it's k8s objects
-        k8s_objects = template_func(deepcopy(context))
+        k8s_objects = template_func(context)
         if not isinstance(k8s_objects, (list, tuple)):
             k8s_objects = [k8s_objects]
         rendering[template_path] = k8s_objects

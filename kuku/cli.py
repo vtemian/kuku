@@ -12,7 +12,7 @@ from kuku.values import resolve
 
 def cli():
     """kuku: Kubernetes templating tool.
-    
+
     Usage:
       kuku apply [-v] [-f <FILE>]... [-s <key=value>]... <TEMPLATES_DIR>
       kuku delete [-v] [-f <FILE>]... [-s <key=value>]... <TEMPLATES_DIR>
@@ -55,6 +55,10 @@ def cli():
 
     # Render templates with resolved context
     rendering = render(context, templates)
+
+    if not context.is_complete:
+        print(f"Missing values: {context.missing_keys}")
+        exit(1)
 
     output = dump(rendering)
     if arguments["render"]:
